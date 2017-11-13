@@ -13,4 +13,6 @@
     <string name="task_title">Title</string>
     <string name="task_Date">Date</string>
     <string name="task_Time">Time</string>
+    <string name="ok">OK</string>
+    <string name="Cancel">Cancel</string>
 </resources>
