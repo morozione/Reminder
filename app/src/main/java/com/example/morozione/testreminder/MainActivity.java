@@ -1,6 +1,7 @@
 package com.example.morozione.testreminder;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -8,13 +9,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.example.morozione.testreminder.adapter.TabAdapter;
+import com.example.morozione.testreminder.dialog.AddingDialogFragment;
 import com.example.morozione.testreminder.fragment.SplashFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AddingDialogFragment.AddingTaskListener {
     private FragmentManager fragmentManager;
     private PreferenceHelper preferenceHelper;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        MenuItem menuItem = menu.findItem(R.id.i_m_dont_show_splash);
+        menuItem.setChecked(preferenceHelper.getBoolean(PreferenceHelper.SPLASH_IN_VISIBLE));
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,14 +84,15 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        MenuItem menuItem = menu.findItem(R.id.i_m_dont_show_splash);
-        menuItem.setChecked(preferenceHelper.getBoolean(PreferenceHelper.SPLASH_IN_VISIBLE));
-        return true;
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddingDialogFragment dialogFragment = new AddingDialogFragment();
+                dialogFragment.show(fragmentManager, "Dialog added task");
+            }
+        });
     }
 
     @Override
@@ -89,5 +102,15 @@ public class MainActivity extends AppCompatActivity {
             preferenceHelper.putBoolean(PreferenceHelper.SPLASH_IN_VISIBLE, item.isChecked());
         }
         return true;
+    }
+
+    @Override
+    public void onTaskAdded() {
+        Toast.makeText(this, "Task added", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onTaskAddingCancel() {
+        Toast.makeText(this, "Task no added", Toast.LENGTH_SHORT).show();
     }
 }

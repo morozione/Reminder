@@ -15,4 +15,5 @@
     <string name="task_Time">Time</string>
     <string name="ok">OK</string>
     <string name="Cancel">Cancel</string>
+    <string name="error_empty_text_file">Please, enter text</string>
 </resources>
