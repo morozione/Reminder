@@ -1,6 +1,5 @@
 package com.example.morozione.testreminder.dialog;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -28,7 +27,7 @@ public class AddingDialogFragment extends DialogFragment {
     private AddingTaskListener listener;
 
     public interface AddingTaskListener {
-        public void onTaskAdded();
+        public void onTaskAdded(ModelTask newTask);
         public void onTaskAddingCancel();
     }
 
@@ -65,7 +64,7 @@ public class AddingDialogFragment extends DialogFragment {
 
         builder.setView(container);
 
-        ModelTask modelTask = new ModelTask();
+        final ModelTask modelTask = new ModelTask();
 
         final Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY) + 1);
@@ -82,7 +81,7 @@ public class AddingDialogFragment extends DialogFragment {
                         calendar.set(Calendar.YEAR, year);
                         calendar.set(Calendar.MONTH, mounth);
                         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                        etDate.setText(Utils.getDAte(calendar.getTimeInMillis()));
+                        etDate.setText(Utils.getDate(calendar.getTimeInMillis()));
                     }
 
                     @Override
@@ -107,7 +106,7 @@ public class AddingDialogFragment extends DialogFragment {
                         calendar.set(Calendar.HOUR_OF_DAY, i);
                         calendar.set(Calendar.MINUTE, i1);
                         calendar.set(Calendar.SECOND, 0);
-                        etTime.setText(Utils.getTiem(calendar.getTimeInMillis()));
+                        etTime.setText(Utils.getTime(calendar.getTimeInMillis()));
                     }
 
                     @Override
@@ -123,7 +122,11 @@ public class AddingDialogFragment extends DialogFragment {
         builder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                listener.onTaskAdded();
+                modelTask.setTitle(etTitle.getText().toString());
+                if (etTime.length() != 0 && etDate.length() != 0) {
+                    modelTask.setDate(calendar.getTimeInMillis());
+                }
+                listener.onTaskAdded(modelTask);
                 dialogInterface.dismiss();
             }
         });

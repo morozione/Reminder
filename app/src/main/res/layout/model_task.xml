@@ -15,7 +15,6 @@
         android:layout_marginTop="16dp"
         android:layout_toRightOf="@id/tvTaskTitle"
         android:layout_alignParentLeft="true"
-        android:text="Title"
         android:textColor="@color/primary_text_default_material_light"
         android:textSize="16sp"
         />
@@ -25,7 +24,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="right"
-        android:text="Date:"
         android:layout_marginTop="19dp"
         android:layout_margin="16dp"
         android:layout_alignParentRight="true"
