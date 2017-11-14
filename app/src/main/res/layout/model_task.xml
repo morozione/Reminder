@@ -7,11 +7,20 @@
                 android:orientation="vertical"
     >
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civ_task_priority"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@color/colorPrimaryDark"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        />
+
     <TextView
         android:id="@+id/tvTaskTitle"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="72dp"
         android:layout_marginTop="16dp"
         android:layout_toRightOf="@id/tvTaskTitle"
         android:layout_alignParentLeft="true"

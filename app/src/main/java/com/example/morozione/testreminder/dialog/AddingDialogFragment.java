@@ -11,11 +11,15 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 
+import com.example.morozione.testreminder.MainActivity;
 import com.example.morozione.testreminder.R;
 import com.example.morozione.testreminder.Utils;
 import com.example.morozione.testreminder.model.ModelTask;
@@ -55,6 +59,8 @@ public class AddingDialogFragment extends DialogFragment {
         TextInputLayout tilTime = container.findViewById(R.id.tilDialogTaskTime);
         final EditText etTime = tilTime.getEditText();
 
+        Spinner sTaskPriority = container.findViewById(R.id.s_task_priority);
+
         assert etTitle != null;
         etTitle.setHint(getResources().getString(R.string.task_title));
         assert etTime != null;
@@ -65,6 +71,17 @@ public class AddingDialogFragment extends DialogFragment {
         builder.setView(container);
 
         final ModelTask modelTask = new ModelTask();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, ModelTask.PRIORITY_LEVELS);
+
+        sTaskPriority.setAdapter(adapter);
+
+        sTaskPriority.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int priority, long l) {
+                modelTask.setPriority(priority);
+            }
+        });
 
         final Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY) + 1);
@@ -90,7 +107,7 @@ public class AddingDialogFragment extends DialogFragment {
                         etTime.setText(null);
                     }
                 };
-                datePickerFragment.show(getFragmentManager(), "DatePickerFragment");
+                datePickerFragment.show(MainActivity.fragmentManager, "DatePickerFragment");
             }
         });
 
@@ -115,7 +132,7 @@ public class AddingDialogFragment extends DialogFragment {
                         etDate.setText(null);
                     }
                 };
-                timePickerFragment.show(getFragmentManager(), "TimePickerFragment");
+                timePickerFragment.show(MainActivity.fragmentManager, "TimePickerFragment");
             }
         });
 

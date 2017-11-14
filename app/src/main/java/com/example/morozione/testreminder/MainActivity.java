@@ -20,7 +20,7 @@ import com.example.morozione.testreminder.fragment.SplashFragment;
 import com.example.morozione.testreminder.model.ModelTask;
 
 public class MainActivity extends AppCompatActivity implements AddingDialogFragment.AddingTaskListener {
-    private FragmentManager fragmentManager;
+    public static FragmentManager fragmentManager;
     private PreferenceHelper preferenceHelper;
     private TabAdapter tabAdapter;
 
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements AddingDialogFragm
         });
 
         currentTaskFragment = (CurrentTaskFragment) tabAdapter.getItem(TabAdapter.CURRENT_TASK_FRAGMENT);
-        doneTaskFragment = (DoneTaskFragment) tabAdapter.getItem(TabAdapter.CURRENT_TASK_FRAGMENT);
+        doneTaskFragment = (DoneTaskFragment) tabAdapter.getItem(TabAdapter.DONE_TASK_FRAGMENT);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
