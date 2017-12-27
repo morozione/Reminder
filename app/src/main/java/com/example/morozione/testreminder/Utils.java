@@ -19,7 +19,7 @@ public class Utils {
         return timeFormat.format(time);
     }
 
-    public static String getFullDate(long  time) {
+    public static String getFullDate(long time) {
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat fullFormat = new SimpleDateFormat("dd:MM:yy  HH:mm");
         return fullFormat.format(time);
